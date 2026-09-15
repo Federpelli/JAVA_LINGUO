@@ -1,6 +1,6 @@
 {
   "name": "java-linguo",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -12,6 +12,7 @@
     "desktop:build": "npm run build && python scripts/build_sidecar.py && tauri build",
     "desktop:dev": "npm run build && python scripts/build_sidecar.py && tauri dev",
     "course:validate": "node scripts/validate_course.mjs",
+    "test:update-errors": "node --test tests/update-errors.test.mjs",
     "lint": "oxlint app",
     "format": "oxfmt"
   },
@@ -19,6 +20,7 @@
     "@base-ui/react": "1.7.0",
     "@codemirror/lang-java": "6.0.2",
     "@shadcn/react": "0.3.0",
+    "@tauri-apps/plugin-opener": "2.5.5",
     "@tauri-apps/plugin-process": "2.3.1",
     "@tauri-apps/plugin-updater": "2.11.0",
     "@uiw/codemirror-theme-vscode": "4.25.11",

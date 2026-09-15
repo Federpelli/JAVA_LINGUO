@@ -73,6 +73,7 @@ pub fn run() {
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_process::init())
+        .plugin(tauri_plugin_opener::init())
         .manage(BackendProcess::default())
         .setup(|app| {
             let port = available_loopback_port()?;

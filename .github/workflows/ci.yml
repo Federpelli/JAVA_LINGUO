@@ -43,6 +43,9 @@ jobs:
       - name: Controlla il frontend
         run: npx oxlint app
 
+      - name: Verifica gestione errori updater
+        run: npm run test:update-errors
+
       - name: Genera la build distribuibile
         run: npm run build
 

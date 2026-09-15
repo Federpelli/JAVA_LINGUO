@@ -18,15 +18,15 @@
     "file": "_next/static/chunks/rolldown-runtime-hePW80VL.js",
     "name": "rolldown-runtime"
   },
-  "_vinext-V-dSTZt2.js": {
-    "file": "_next/static/chunks/vinext-V-dSTZt2.js",
+  "_vinext-DGUirD7z.js": {
+    "file": "_next/static/chunks/vinext-DGUirD7z.js",
     "name": "vinext",
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js"
     ],
     "dynamicImports": [
-      "_vinext-V-dSTZt2.js"
+      "_vinext-DGUirD7z.js"
     ]
   },
   "app/course-data.ts": {
@@ -73,14 +73,14 @@
     ]
   },
   "app/page.tsx": {
-    "file": "_next/static/chunks/page-r2x0i64G.js",
+    "file": "_next/static/chunks/page-CvxmoEnR.js",
     "name": "page",
     "src": "app/page.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_vinext-V-dSTZt2.js"
+      "_vinext-DGUirD7z.js"
     ],
     "dynamicImports": [
       "app/course-data.ts",
@@ -89,7 +89,17 @@
       "app/course-lessons-38-52.ts",
       "node_modules/@tauri-apps/plugin-updater/dist-js/index.js",
       "node_modules/@tauri-apps/plugin-process/dist-js/index.js",
+      "node_modules/@tauri-apps/plugin-opener/dist-js/index.js",
       "app/java-code-editor.tsx"
+    ]
+  },
+  "node_modules/@tauri-apps/plugin-opener/dist-js/index.js": {
+    "file": "_next/static/chunks/dist-js-qn4hL-Qy.js",
+    "name": "dist-js",
+    "src": "node_modules/@tauri-apps/plugin-opener/dist-js/index.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_core-BFqLT5rb.js"
     ]
   },
   "node_modules/@tauri-apps/plugin-process/dist-js/index.js": {
@@ -111,28 +121,28 @@
     ]
   },
   "node_modules/vinext/dist/shims/layout-segment-context.js": {
-    "file": "_next/static/chunks/layout-segment-context-CaXEs0xr.js",
+    "file": "_next/static/chunks/layout-segment-context-BdTPvbCl.js",
     "name": "layout-segment-context",
     "src": "node_modules/vinext/dist/shims/layout-segment-context.js",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_vinext-V-dSTZt2.js"
+      "_vinext-DGUirD7z.js"
     ]
   },
   "virtual:vinext-app-browser-entry": {
-    "file": "_next/static/chunks/index-nHJhBSJ3.js",
+    "file": "_next/static/chunks/index-CI5oBLfX.js",
     "name": "index",
     "src": "virtual:vinext-app-browser-entry",
     "isEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_vinext-V-dSTZt2.js"
+      "_vinext-DGUirD7z.js"
     ],
     "dynamicImports": [
-      "_vinext-V-dSTZt2.js",
+      "_vinext-DGUirD7z.js",
       "node_modules/vinext/dist/shims/layout-segment-context.js",
       "app/page.tsx"
     ]

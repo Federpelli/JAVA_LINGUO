@@ -2,8 +2,8 @@
   "appPaths": [
     "/"
   ],
-  "buildId": "223c8431-46d8-4498-b964-be3e25c8a955",
-  "rscBuildId": "46fe8801ac3ebbbeb6509008caba2d72",
+  "buildId": "fcf5d345-a156-4189-b1df-8c99b97e2ca9",
+  "rscBuildId": "68f3693853c68db2cf0d2c27ba25e6bf",
   "routePatterns": {
     "/": {
       "kind": "app-page",

@@ -2,6 +2,13 @@
 
 Tutte le modifiche rilevanti di JAVA_linguo sono documentate in questo file. Il progetto segue il versionamento semantico.
 
+## [0.6.3] - 2026-09-15
+
+### Corretto
+
+- errori dell’updater distinti per controllo, download, integrità, installazione e riavvio, con dettaglio tecnico locale e indicazioni specifiche;
+- fallback alla pagina ufficiale delle release quando l’aggiornamento automatico non è disponibile, limitando il permesso di apertura esterna al solo URL previsto.
+
 ## [0.6.2] - 2026-09-11
 
 ### Corretto

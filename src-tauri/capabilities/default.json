@@ -8,6 +8,14 @@
     "updater:default",
     "process:allow-restart",
     {
+      "identifier": "opener:allow-open-url",
+      "allow": [
+        {
+          "url": "https://github.com/Federpelli25/JAVA_linguo/releases/latest"
+        }
+      ]
+    },
+    {
       "identifier": "shell:allow-spawn",
       "allow": [
         {
