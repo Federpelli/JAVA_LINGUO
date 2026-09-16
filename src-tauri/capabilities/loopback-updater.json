@@ -1,0 +1,23 @@
+{
+  "$schema": "../gen/schemas/remote-schema.json",
+  "identifier": "loopback-updater",
+  "description": "Permessi updater concessi esclusivamente al frontend locale incorporato",
+  "local": false,
+  "windows": ["main"],
+  "remote": {
+    "urls": ["http://127.0.0.1:*"]
+  },
+  "permissions": [
+    "updater:allow-check",
+    "updater:allow-download-and-install",
+    "process:allow-restart",
+    {
+      "identifier": "opener:allow-open-url",
+      "allow": [
+        {
+          "url": "https://github.com/Federpelli25/JAVA_linguo/releases/latest"
+        }
+      ]
+    }
+  ]
+}

@@ -41,6 +41,9 @@ class DesktopConfigurationTests(unittest.TestCase):
     def test_signed_tauri_updater_is_configured(self) -> None:
         tauri_config = json.loads((ROOT / "src-tauri" / "tauri.conf.json").read_text())
         capability = json.loads((ROOT / "src-tauri" / "capabilities" / "default.json").read_text())
+        loopback_capability = json.loads(
+            (ROOT / "src-tauri" / "capabilities" / "loopback-updater.json").read_text()
+        )
         cargo_manifest = (ROOT / "src-tauri" / "Cargo.toml").read_text()
         package = json.loads((ROOT / "package.json").read_text())
         workflow = (ROOT / ".github" / "workflows" / "desktop-release.yml").read_text()
@@ -49,6 +52,10 @@ class DesktopConfigurationTests(unittest.TestCase):
         installer_hooks = tauri_config["bundle"]["windows"]["nsis"]["installerHooks"]
         installer_hook_source = (ROOT / "src-tauri" / installer_hooks).read_text()
         self.assertTrue(tauri_config["bundle"]["createUpdaterArtifacts"])
+        self.assertEqual(
+            tauri_config["app"]["security"]["capabilities"],
+            ["default", "loopback-updater"],
+        )
         self.assertTrue(updater["pubkey"])
         self.assertEqual(
             updater["endpoints"],
@@ -56,6 +63,29 @@ class DesktopConfigurationTests(unittest.TestCase):
         )
         self.assertIn("updater:default", capability["permissions"])
         self.assertIn("process:allow-restart", capability["permissions"])
+        self.assertFalse(loopback_capability["local"])
+        self.assertEqual(loopback_capability["windows"], ["main"])
+        self.assertEqual(
+            loopback_capability["remote"],
+            {"urls": ["http://127.0.0.1:*"]},
+        )
+        self.assertIn("updater:allow-check", loopback_capability["permissions"])
+        self.assertIn(
+            "updater:allow-download-and-install",
+            loopback_capability["permissions"],
+        )
+        self.assertIn("process:allow-restart", loopback_capability["permissions"])
+        self.assertNotIn("core:default", loopback_capability["permissions"])
+        self.assertFalse(
+            any(
+                permission == "shell:allow-spawn"
+                or (
+                    isinstance(permission, dict)
+                    and permission.get("identifier") == "shell:allow-spawn"
+                )
+                for permission in loopback_capability["permissions"]
+            )
+        )
         self.assertIn('tauri-plugin-updater = "=2.11.0"', cargo_manifest)
         self.assertIn('tauri-plugin-opener = "=2.5.4"', cargo_manifest)
         self.assertEqual(package["dependencies"]["@tauri-apps/plugin-opener"], "2.5.5")
@@ -70,6 +100,17 @@ class DesktopConfigurationTests(unittest.TestCase):
             },
             capability["permissions"],
         )
+        self.assertIn(
+            {
+                "identifier": "opener:allow-open-url",
+                "allow": [
+                    {
+                        "url": "https://github.com/Federpelli25/JAVA_linguo/releases/latest"
+                    }
+                ],
+            },
+            loopback_capability["permissions"],
+        )
         self.assertIn("TAURI_SIGNING_PRIVATE_KEY", workflow)
         self.assertEqual(workflow.count("bundles: app,dmg"), 2)
         self.assertRegex(workflow, r"tauri-apps/tauri-action@[0-9a-f]{40}")
@@ -81,6 +122,7 @@ class DesktopConfigurationTests(unittest.TestCase):
         rust_source = (ROOT / "src-tauri" / "src" / "lib.rs").read_text()
         self.assertIn("stop_backend(&app.state::<BackendProcess>())", rust_source)
         self.assertIn("tauri_plugin_opener::init()", rust_source)
+        self.assertIn('format!("http://127.0.0.1:{port}")', rust_source)
 
         update_center = (ROOT / "app" / "update-center.tsx").read_text(encoding="utf-8")
         self.assertIn("errorDetail(error)", update_center)

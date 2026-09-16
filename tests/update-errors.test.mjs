@@ -4,6 +4,7 @@ import test from 'node:test';
 import { errorDetail, updateErrorMessage } from '../app/update-errors.ts';
 
 const classifiedErrors = [
+  ['check', 'Command plugin:updater|check not allowed by ACL', 'non è autorizzata'],
   ['check', 'signature verification failed', 'integrità'],
   ['check', 'invalid release JSON manifest', 'dati della release'],
   ['check', 'request timed out', '30 secondi'],

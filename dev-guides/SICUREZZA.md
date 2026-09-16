@@ -51,6 +51,7 @@ La sandbox è destinata all'uso locale da parte di una persona. Non presentarla 
 
 - Il nome pubblico del prodotto deve essere `JAVA_linguo`; gli identificatori tecnici possono usare `java-linguo`.
 - Il WebView deve raggiungere soltanto il server HTTP locale creato dal sidecar.
+- Le API Tauri usate dal frontend HTTP devono essere concesse da una capability remota separata, limitata a `http://127.0.0.1:*`, alla finestra `main` e ai soli comandi necessari; non concedere al frontend remoto i permessi della shell.
 - Il plugin shell deve poter avviare esclusivamente `java-linguo-backend` con gli argomenti documentati e validati.
 - Il processo sidecar deve terminare alla chiusura dell'app.
 - Il backend incorporato deve contenere la build frontend e `VERSION`, senza `.env`, segreti o file di sviluppo.

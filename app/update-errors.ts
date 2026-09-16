@@ -22,6 +22,9 @@ export function errorDetail(error: unknown): string {
 export function updateErrorMessage(stage: UpdateFailureStage, detail: string): string {
   const normalized = detail.toLowerCase();
 
+  if (/not allowed by acl|acl.*(?:denied|forbidden)|command .*not allowed/.test(normalized)) {
+    return 'Questa versione non è autorizzata a usare il servizio aggiornamenti. Installa manualmente la release più recente per ripristinare gli aggiornamenti automatici.';
+  }
   if (/signature|public key|checksum|integrity/.test(normalized)) {
     return 'Il pacchetto è stato rifiutato perché non è stato possibile verificarne l’integrità. La versione installata non è stata modificata.';
   }

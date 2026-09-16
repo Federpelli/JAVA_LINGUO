@@ -2,6 +2,14 @@
 
 Tutte le modifiche rilevanti di JAVA_linguo sono documentate in questo file. Il progetto segue il versionamento semantico.
 
+## [0.6.4] - 2026-09-16
+
+### Corretto
+
+- autorizzazione ACL dell’updater per il frontend incorporato servito dal sidecar su una porta dinamica di `127.0.0.1`;
+- capability remota separata e minimale, senza accesso alla shell, limitata a controllo, installazione firmata, riavvio e apertura del fallback ufficiale;
+- messaggio specifico quando un comando dell’updater viene bloccato dall’ACL.
+
 ## [0.6.3] - 2026-09-15
 
 ### Corretto
