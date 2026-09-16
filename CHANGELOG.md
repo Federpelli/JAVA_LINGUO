@@ -2,6 +2,12 @@
 
 Tutte le modifiche rilevanti di JAVA_linguo sono documentate in questo file. Il progetto segue il versionamento semantico.
 
+## [0.6.5] - 2026-09-16
+
+### Modificato
+
+- la finestra principale si apre direttamente in modalità fullscreen.
+
 ## [0.6.4] - 2026-09-16
 
 ### Corretto

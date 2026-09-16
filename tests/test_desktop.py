@@ -22,6 +22,7 @@ class DesktopConfigurationTests(unittest.TestCase):
 
         self.assertEqual(tauri_config["productName"], "JAVA_linguo")
         self.assertEqual(tauri_config["identifier"], "com.federpelli25.java-linguo")
+        self.assertTrue(tauri_config["app"]["windows"][0]["fullscreen"])
         self.assertEqual(tauri_config["version"], version)
         self.assertEqual(package["version"], version)
         self.assertIn(f'version = "{version}"', cargo_manifest)
