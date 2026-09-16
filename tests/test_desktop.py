@@ -106,7 +106,7 @@ class DesktopConfigurationTests(unittest.TestCase):
                 "identifier": "opener:allow-open-url",
                 "allow": [
                     {
-                        "url": "https://github.com/Federpelli25/JAVA_linguo/releases/latest"
+                        "url": "https://github.com/Federpelli/JAVA_LINGUO/releases/latest"
                     }
                 ],
             },
@@ -117,7 +117,7 @@ class DesktopConfigurationTests(unittest.TestCase):
                 "identifier": "opener:allow-open-url",
                 "allow": [
                     {
-                        "url": "https://github.com/Federpelli25/JAVA_linguo/releases/latest"
+                        "url": "https://github.com/Federpelli/JAVA_LINGUO/releases/latest"
                     }
                 ],
             },
@@ -150,6 +150,15 @@ class DesktopConfigurationTests(unittest.TestCase):
         self.assertIn("appWindow.isFullscreen()", fullscreen_shortcut)
         self.assertIn("appWindow.setFullscreen(false)", fullscreen_shortcut)
         self.assertIn("<FullscreenShortcut />", layout)
+
+        page = (ROOT / "app" / "page.tsx").read_text(encoding="utf-8")
+        error_boundary = (ROOT / "app" / "error.tsx").read_text(encoding="utf-8")
+        self.assertIn("function selectSlide(", page)
+        self.assertIn("currentSlide: number", page)
+        self.assertIn("scrollIntoView({ behavior: 'auto', block: 'start' })", page)
+        self.assertIn("lessonHeadingRef.current?.focus({ preventScroll: true })", page)
+        self.assertIn("[app:error-boundary]", error_boundary)
+        self.assertIn("Riprova", error_boundary)
 
     def test_java_editor_and_terminal_input_are_exposed(self) -> None:
         package = json.loads((ROOT / "package.json").read_text())

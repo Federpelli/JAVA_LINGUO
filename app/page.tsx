@@ -131,6 +131,8 @@ export default function Home() {
   const [sandboxChecked, setSandboxChecked] = useState(false);
   const [sandboxChecking, setSandboxChecking] = useState(false);
   const sandboxCheckInFlight = useRef(false);
+  const lessonCardRef = useRef<HTMLElement>(null);
+  const lessonHeadingRef = useRef<HTMLHeadingElement>(null);
   const [githubUrl, setGithubUrl] = useState(DEFAULT_GITHUB_URL);
   const [sandbox, setSandbox] = useState<SandboxStatus>({
     available: false,
@@ -303,6 +305,28 @@ export default function Home() {
       ...current,
       [lesson.number]: { ...(current[lesson.number] ?? initialProgress(lesson)), ...patch },
     }));
+  }
+
+  function selectSlide(nextSlide: number | ((currentSlide: number) => number)) {
+    if (!lesson) return;
+
+    setProgressByLesson((current) => {
+      const saved = current[lesson.number] ?? initialProgress(lesson);
+      const requested = typeof nextSlide === 'function'
+        ? nextSlide(saved.slide ?? 0)
+        : nextSlide;
+      const bounded = Math.min(Math.max(0, requested), lesson.theory.length - 1);
+
+      return {
+        ...current,
+        [lesson.number]: { ...saved, slide: bounded },
+      };
+    });
+
+    window.requestAnimationFrame(() => {
+      lessonCardRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' });
+      lessonHeadingRef.current?.focus({ preventScroll: true });
+    });
   }
 
   function setTab(value: string) {
@@ -485,9 +509,9 @@ export default function Home() {
 
           <TabsContent value="theory" className="content-panel">
             <div className="theory-layout">
-              <article className="lesson-card">
+              <article className="lesson-card" ref={lessonCardRef} key={`${lesson.number}-${slide}`}>
                 <div className="card-meta"><span>{section.kicker}</span><span>{slide + 1} / {lesson.theory.length}</span></div>
-                <h2>{inlineCode(section.title)}</h2>
+                <h2 ref={lessonHeadingRef} tabIndex={-1}>{inlineCode(section.title)}</h2>
                 <p className="lead">{section.lead}</p>
                 <div className="plain-language"><span>In parole semplici</span><p>{inlineCode(section.plain)}</p></div>
                 {section.analogy && <div className="analogy"><span>Un’analogia utile</span><p>{inlineCode(section.analogy)}</p></div>}
@@ -498,9 +522,9 @@ export default function Home() {
                 {section.walkthrough && <div className="walkthrough"><span>Passo per passo</span><ol>{section.walkthrough.map((step) => <li key={step}>{inlineCode(step)}</li>)}</ol></div>}
                 <div className="callout"><Lightbulb /><p>{inlineCode(section.callout)}</p></div>
                 <div className="lesson-controls">
-                  <Button variant="outline" onClick={() => updateProgress({ slide: Math.max(0, slide - 1) })} disabled={slide === 0}><ArrowLeft /> Indietro</Button>
+                  <Button variant="outline" onClick={() => selectSlide((current) => current - 1)} disabled={slide === 0}><ArrowLeft /> Indietro</Button>
                   {slide < lesson.theory.length - 1
-                    ? <Button onClick={() => updateProgress({ slide: slide + 1 })}>Continua <ArrowRight /></Button>
+                    ? <Button onClick={() => selectSlide((current) => current + 1)}>Continua <ArrowRight /></Button>
                     : <Button onClick={() => setTab('quiz')}>Vai alla verifica <ArrowRight /></Button>}
                 </div>
               </article>
@@ -510,7 +534,7 @@ export default function Home() {
                 <div className="aside-card question-card"><b>Prima di proseguire</b><p>{inlineCode(section.question)}</p><small>Rispondi a voce senza rileggere.</small></div>
                 <div className="slide-map">
                   {lesson.theory.map((item, index) => (
-                    <button key={item.title} className={index === slide ? 'current' : index < slide ? 'visited' : ''} onClick={() => updateProgress({ slide: index })} aria-label={`Scheda ${index + 1}`}>
+                    <button key={item.title} className={index === slide ? 'current' : index < slide ? 'visited' : ''} onClick={() => selectSlide(index)} aria-label={`Scheda ${index + 1}`}>
                       <span>{index < slide ? <Check /> : index + 1}</span><small>{item.kicker}</small>
                     </button>
                   ))}

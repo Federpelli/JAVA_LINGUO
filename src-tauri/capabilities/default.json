@@ -11,7 +11,7 @@
       "identifier": "opener:allow-open-url",
       "allow": [
         {
-          "url": "https://github.com/Federpelli25/JAVA_linguo/releases/latest"
+          "url": "https://github.com/Federpelli/JAVA_LINGUO/releases/latest"
         }
       ]
     },

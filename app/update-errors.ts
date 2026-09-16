@@ -1,6 +1,6 @@
 export type UpdateFailureStage = 'check' | 'download' | 'install' | 'relaunch' | 'fallback';
 
-export const RELEASES_URL = 'https://github.com/Federpelli25/JAVA_linguo/releases/latest';
+export const RELEASES_URL = 'https://github.com/Federpelli/JAVA_LINGUO/releases/latest';
 
 export function errorDetail(error: unknown): string {
   let detail: string;

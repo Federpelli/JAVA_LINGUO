@@ -54,7 +54,7 @@ p code,li code,h2 code { border-radius:.35rem; background:#dfe9e5; color:#005846
 .content-panel { width:min(100%,78rem); margin:0 auto; padding:clamp(1.4rem,4vw,3.4rem) clamp(1.1rem,4vw,4rem) 5rem; }
 .theory-layout { display:grid; grid-template-columns:minmax(0,1fr) 14rem; gap:1.5rem; align-items:start; }
 .lesson-card,.quiz-card,.mission-card,.aside-card,.session-card,.path-card,.command-card,.notes-card,.completion-card { border:1px solid var(--border); background:rgb(255 255 255 / 88%); box-shadow:0 16px 50px rgb(21 48 41 / 6%); }
-.lesson-card { min-height:35rem; border-radius:1.2rem; padding:clamp(1.5rem,4vw,3.2rem); }
+.lesson-card { min-height:35rem; scroll-margin-top:7.5rem; border-radius:1.2rem; padding:clamp(1.5rem,4vw,3.2rem); }
 .card-meta { display:flex; justify-content:space-between; color:var(--primary); font:700 .72rem var(--font-mono); letter-spacing:.11em; text-transform:uppercase; }
 .lesson-card h2,.section-heading h2 { max-width:46rem; margin:1rem 0 0; font-size:clamp(1.9rem,4vw,3.45rem); line-height:1.03; letter-spacing:-.055em; }
 .lead { max-width:47rem; margin:1.25rem 0 1.5rem; color:#4f5f5a; font-size:1.07rem; line-height:1.65; }
