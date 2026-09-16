@@ -1,6 +1,6 @@
 {
-  "_core-BFqLT5rb.js": {
-    "file": "_next/static/chunks/core-BFqLT5rb.js",
+  "_core-DNaw6KYU.js": {
+    "file": "_next/static/chunks/core-DNaw6KYU.js",
     "name": "core"
   },
   "_course-factory-9PcRttbO.js": {
@@ -18,15 +18,15 @@
     "file": "_next/static/chunks/rolldown-runtime-hePW80VL.js",
     "name": "rolldown-runtime"
   },
-  "_vinext-D7_h1A13.js": {
-    "file": "_next/static/chunks/vinext-D7_h1A13.js",
+  "_vinext-Bc5vKqDM.js": {
+    "file": "_next/static/chunks/vinext-Bc5vKqDM.js",
     "name": "vinext",
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js"
     ],
     "dynamicImports": [
-      "_vinext-D7_h1A13.js"
+      "_vinext-Bc5vKqDM.js"
     ]
   },
   "app/course-data.ts": {
@@ -62,6 +62,17 @@
       "_course-factory-9PcRttbO.js"
     ]
   },
+  "app/fullscreen-shortcut.tsx": {
+    "file": "_next/static/chunks/fullscreen-shortcut-kkNu4BIb.js",
+    "name": "fullscreen-shortcut",
+    "src": "app/fullscreen-shortcut.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_rolldown-runtime-hePW80VL.js",
+      "_framework-DTZGTDtF.js",
+      "_core-DNaw6KYU.js"
+    ]
+  },
   "app/java-code-editor.tsx": {
     "file": "_next/static/chunks/java-code-editor-DnX-P8vv.js",
     "name": "java-code-editor",
@@ -73,14 +84,14 @@
     ]
   },
   "app/page.tsx": {
-    "file": "_next/static/chunks/page-BgRNXWqI.js",
+    "file": "_next/static/chunks/page-ezlwMm82.js",
     "name": "page",
     "src": "app/page.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_vinext-D7_h1A13.js"
+      "_vinext-Bc5vKqDM.js"
     ],
     "dynamicImports": [
       "app/course-data.ts",
@@ -94,57 +105,58 @@
     ]
   },
   "node_modules/@tauri-apps/plugin-opener/dist-js/index.js": {
-    "file": "_next/static/chunks/dist-js-qn4hL-Qy.js",
+    "file": "_next/static/chunks/dist-js-EJDCU2l2.js",
     "name": "dist-js",
     "src": "node_modules/@tauri-apps/plugin-opener/dist-js/index.js",
     "isDynamicEntry": true,
     "imports": [
-      "_core-BFqLT5rb.js"
+      "_core-DNaw6KYU.js"
     ]
   },
   "node_modules/@tauri-apps/plugin-process/dist-js/index.js": {
-    "file": "_next/static/chunks/dist-js-C5eqIYwC.js",
+    "file": "_next/static/chunks/dist-js-C7JaR3Vq.js",
     "name": "dist-js",
     "src": "node_modules/@tauri-apps/plugin-process/dist-js/index.js",
     "isDynamicEntry": true,
     "imports": [
-      "_core-BFqLT5rb.js"
+      "_core-DNaw6KYU.js"
     ]
   },
   "node_modules/@tauri-apps/plugin-updater/dist-js/index.js": {
-    "file": "_next/static/chunks/dist-js-B4esCSMB.js",
+    "file": "_next/static/chunks/dist-js-Cew7oPiS.js",
     "name": "dist-js",
     "src": "node_modules/@tauri-apps/plugin-updater/dist-js/index.js",
     "isDynamicEntry": true,
     "imports": [
-      "_core-BFqLT5rb.js"
+      "_core-DNaw6KYU.js"
     ]
   },
   "node_modules/vinext/dist/shims/layout-segment-context.js": {
-    "file": "_next/static/chunks/layout-segment-context-DEiJUZ7i.js",
+    "file": "_next/static/chunks/layout-segment-context-CtcgT50l.js",
     "name": "layout-segment-context",
     "src": "node_modules/vinext/dist/shims/layout-segment-context.js",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_vinext-D7_h1A13.js"
+      "_vinext-Bc5vKqDM.js"
     ]
   },
   "virtual:vinext-app-browser-entry": {
-    "file": "_next/static/chunks/index-D4f6dmog.js",
+    "file": "_next/static/chunks/index-CRvQe2z4.js",
     "name": "index",
     "src": "virtual:vinext-app-browser-entry",
     "isEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_vinext-D7_h1A13.js"
+      "_vinext-Bc5vKqDM.js"
     ],
     "dynamicImports": [
-      "_vinext-D7_h1A13.js",
+      "_vinext-Bc5vKqDM.js",
       "node_modules/vinext/dist/shims/layout-segment-context.js",
-      "app/page.tsx"
+      "app/page.tsx",
+      "app/fullscreen-shortcut.tsx"
     ]
   }
 }

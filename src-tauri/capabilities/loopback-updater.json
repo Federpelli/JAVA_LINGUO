@@ -8,6 +8,8 @@
     "urls": ["http://127.0.0.1:*"]
   },
   "permissions": [
+    "core:window:allow-is-fullscreen",
+    "core:window:allow-set-fullscreen",
     "updater:allow-check",
     "updater:allow-download-and-install",
     "process:allow-restart",

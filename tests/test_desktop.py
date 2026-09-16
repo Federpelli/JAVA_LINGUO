@@ -60,7 +60,10 @@ class DesktopConfigurationTests(unittest.TestCase):
         self.assertTrue(updater["pubkey"])
         self.assertEqual(
             updater["endpoints"],
-            ["https://github.com/Federpelli25/JAVA_linguo/releases/latest/download/latest.json"],
+            [
+                "https://github.com/Federpelli/JAVA_LINGUO/releases/latest/download/latest.json",
+                "https://github.com/Federpelli25/JAVA_linguo/releases/latest/download/latest.json",
+            ],
         )
         self.assertIn("updater:default", capability["permissions"])
         self.assertIn("process:allow-restart", capability["permissions"])
@@ -71,6 +74,14 @@ class DesktopConfigurationTests(unittest.TestCase):
             {"urls": ["http://127.0.0.1:*"]},
         )
         self.assertIn("updater:allow-check", loopback_capability["permissions"])
+        self.assertIn(
+            "core:window:allow-is-fullscreen",
+            loopback_capability["permissions"],
+        )
+        self.assertIn(
+            "core:window:allow-set-fullscreen",
+            loopback_capability["permissions"],
+        )
         self.assertIn(
             "updater:allow-download-and-install",
             loopback_capability["permissions"],
@@ -129,6 +140,16 @@ class DesktopConfigurationTests(unittest.TestCase):
         self.assertIn("errorDetail(error)", update_center)
         self.assertIn("Dettaglio tecnico", update_center)
         self.assertIn("openUrl(RELEASES_URL)", update_center)
+
+        fullscreen_shortcut = (ROOT / "app" / "fullscreen-shortcut.tsx").read_text(
+            encoding="utf-8"
+        )
+        layout = (ROOT / "app" / "layout.tsx").read_text(encoding="utf-8")
+        self.assertEqual(package["dependencies"]["@tauri-apps/api"], "2.11.1")
+        self.assertIn("event.key !== 'Escape'", fullscreen_shortcut)
+        self.assertIn("appWindow.isFullscreen()", fullscreen_shortcut)
+        self.assertIn("appWindow.setFullscreen(false)", fullscreen_shortcut)
+        self.assertIn("<FullscreenShortcut />", layout)
 
     def test_java_editor_and_terminal_input_are_exposed(self) -> None:
         package = json.loads((ROOT / "package.json").read_text())

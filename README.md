@@ -30,6 +30,8 @@ Ogni collegamento punta direttamente all'installer ufficiale: facendo clic, il b
 
 Puoi scaricare ogni installer direttamente da questa tabella. La pagina **[Releases → Latest](https://github.com/Federpelli25/JAVA_linguo/releases/latest)** rimane disponibile per checksum, SBOM e versioni precedenti.
 
+> Il codice sorgente corrente si trova in [Federpelli/JAVA_LINGUO](https://github.com/Federpelli/JAVA_LINGUO). Durante la migrazione, gli installer firmati della versione 0.6.5 restano ospitati nel canale release storico indicato sopra.
+
 | Sistema | Download diretto | Come scegliere |
 | --- | --- | --- |
 | Windows 10/11 a 64 bit | [Scarica `.exe`](https://github.com/Federpelli25/JAVA_linguo/releases/download/v0.6.5/JAVA_linguo-v0.6.5-windows-x64.setup.exe) | Scelta corretta per quasi tutti i PC Windows |
@@ -114,8 +116,8 @@ Il percorso è diviso in fondamenti, dati e algoritmi, modellazione a oggetti, l
 Chi preferisce eseguire il progetto direttamente dal codice può usare **Code → Download ZIP** oppure:
 
 ```powershell
-git clone https://github.com/Federpelli25/JAVA_linguo.git
-cd JAVA_linguo
+git clone https://github.com/Federpelli/JAVA_LINGUO.git
+cd JAVA_LINGUO
 ```
 
 Servono Python 3.11 o successivo e Docker. La build web è inclusa nel repository, quindi Node.js non è necessario per studiare.
@@ -213,4 +215,4 @@ Le build ufficiali sono generate dalle pipeline `Integrità release` e `Installe
 
 ## Repository
 
-[Federpelli25/JAVA_linguo](https://github.com/Federpelli25/JAVA_linguo)
+[Federpelli/JAVA_LINGUO](https://github.com/Federpelli/JAVA_LINGUO)

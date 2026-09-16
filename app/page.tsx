@@ -89,7 +89,7 @@ type SavedCourse = {
 const STORAGE_KEY = 'java-linguo-progress-v3';
 const PREVIOUS_STORAGE_KEY = 'java-linguo-progress-v2';
 const LEGACY_STORAGE_KEY = 'studio-java-progress-v2';
-const DEFAULT_GITHUB_URL = 'https://github.com/Federpelli25/JAVA_linguo';
+const DEFAULT_GITHUB_URL = 'https://github.com/Federpelli/JAVA_LINGUO';
 const EMPTY_ANSWERS: Answers = {};
 const JavaCodeEditor = dynamic(() => import('./java-code-editor'), {
   ssr: false,

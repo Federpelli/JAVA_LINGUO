@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import FullscreenShortcut from './fullscreen-shortcut';
 
 export const metadata: Metadata = {
   title: 'JAVA_linguo · Impara Java con teoria e laboratorio',
@@ -10,5 +11,12 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="it"><body>{children}</body></html>;
+  return (
+    <html lang="it">
+      <body>
+        <FullscreenShortcut />
+        {children}
+      </body>
+    </html>
+  );
 }

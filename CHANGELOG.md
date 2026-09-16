@@ -2,6 +2,12 @@
 
 Tutte le modifiche rilevanti di JAVA_linguo sono documentate in questo file. Il progetto segue il versionamento semantico.
 
+## [Unreleased]
+
+### Corretto
+
+- il tasto `Esc` ora chiude la modalità fullscreen della finestra desktop.
+
 ## [0.6.5] - 2026-09-16
 
 ### Modificato

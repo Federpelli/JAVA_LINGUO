@@ -1,5 +1,5 @@
 param(
-    [string]$Repository = "Federpelli25/JAVA_linguo"
+    [string]$Repository = "Federpelli/JAVA_LINGUO"
 )
 
 $ErrorActionPreference = "Stop"

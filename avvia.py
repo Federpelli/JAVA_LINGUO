@@ -28,7 +28,7 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parent
 DIST = ROOT / "dist" / "client"
 VERSION_FILE = ROOT / "VERSION"
-DEFAULT_REPOSITORY = "https://github.com/Federpelli25/JAVA_linguo"
+DEFAULT_REPOSITORY = "https://github.com/Federpelli/JAVA_LINGUO"
 LEGACY_SANDBOX_IMAGE = "eclipse-temurin:25-jdk"
 DEFAULT_SANDBOX_IMAGE = (
     "eclipse-temurin:25-jdk@"

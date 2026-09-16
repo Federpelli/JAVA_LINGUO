@@ -10,7 +10,7 @@ Non aprire una issue pubblica con dettagli sfruttabili, token, dati personali o 
 
 Usa invece la funzione privata **Report a vulnerability** nella sezione Security del repository:
 
-<https://github.com/Federpelli25/JAVA_linguo/security/advisories/new>
+<https://github.com/Federpelli/JAVA_LINGUO/security/advisories/new>
 
 Includi, quando possibile:
 
