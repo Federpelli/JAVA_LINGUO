@@ -6,13 +6,14 @@ Tutte le modifiche rilevanti di JAVA_linguo sono documentate in questo file. Il 
 
 ### Corretto
 
-- il tasto `Esc` ora chiude la modalità fullscreen della finestra desktop.
+- il tasto `Esc` ora riduce a icona la finestra desktop, anche quando è in modalità fullscreen;
 - navigazione tra le schede resa atomica e resistente ai clic rapidi, con ritorno visibile all’inizio del nuovo capitolo;
 - schermata di recupero al posto di un’interfaccia bloccata quando React intercetta un errore di rendering.
 
 ### Modificato
 
-- repository principale, download manuale e primo endpoint updater migrati a `Federpelli/JAVA_LINGUO`, mantenendo il canale storico come fallback temporaneo.
+- repository, download manuale e unico endpoint updater migrati a `Federpelli/JAVA_LINGUO`;
+- richieste al servizio locale limitate nel tempo e salvataggio dei progressi differito, per evitare attese indefinite o rallentamenti durante la scrittura.
 
 ## [0.6.5] - 2026-09-16
 

@@ -62,7 +62,6 @@ class DesktopConfigurationTests(unittest.TestCase):
             updater["endpoints"],
             [
                 "https://github.com/Federpelli/JAVA_LINGUO/releases/latest/download/latest.json",
-                "https://github.com/Federpelli25/JAVA_linguo/releases/latest/download/latest.json",
             ],
         )
         self.assertIn("updater:default", capability["permissions"])
@@ -74,14 +73,7 @@ class DesktopConfigurationTests(unittest.TestCase):
             {"urls": ["http://127.0.0.1:*"]},
         )
         self.assertIn("updater:allow-check", loopback_capability["permissions"])
-        self.assertIn(
-            "core:window:allow-is-fullscreen",
-            loopback_capability["permissions"],
-        )
-        self.assertIn(
-            "core:window:allow-set-fullscreen",
-            loopback_capability["permissions"],
-        )
+        self.assertIn("core:window:allow-minimize", loopback_capability["permissions"])
         self.assertIn(
             "updater:allow-download-and-install",
             loopback_capability["permissions"],
@@ -141,15 +133,15 @@ class DesktopConfigurationTests(unittest.TestCase):
         self.assertIn("Dettaglio tecnico", update_center)
         self.assertIn("openUrl(RELEASES_URL)", update_center)
 
-        fullscreen_shortcut = (ROOT / "app" / "fullscreen-shortcut.tsx").read_text(
+        escape_shortcut = (ROOT / "app" / "escape-minimize-shortcut.tsx").read_text(
             encoding="utf-8"
         )
         layout = (ROOT / "app" / "layout.tsx").read_text(encoding="utf-8")
         self.assertEqual(package["dependencies"]["@tauri-apps/api"], "2.11.1")
-        self.assertIn("event.key !== 'Escape'", fullscreen_shortcut)
-        self.assertIn("appWindow.isFullscreen()", fullscreen_shortcut)
-        self.assertIn("appWindow.setFullscreen(false)", fullscreen_shortcut)
-        self.assertIn("<FullscreenShortcut />", layout)
+        self.assertIn("event.key !== 'Escape'", escape_shortcut)
+        self.assertIn("event.preventDefault()", escape_shortcut)
+        self.assertIn("appWindow.minimize()", escape_shortcut)
+        self.assertIn("<EscapeMinimizeShortcut />", layout)
 
         page = (ROOT / "app" / "page.tsx").read_text(encoding="utf-8")
         error_boundary = (ROOT / "app" / "error.tsx").read_text(encoding="utf-8")
@@ -157,6 +149,12 @@ class DesktopConfigurationTests(unittest.TestCase):
         self.assertIn("currentSlide: number", page)
         self.assertIn("scrollIntoView({ behavior: 'auto', block: 'start' })", page)
         self.assertIn("lessonHeadingRef.current?.focus({ preventScroll: true })", page)
+        self.assertIn("async function fetchWithTimeout(", page)
+        self.assertIn("fetchWithTimeout('/api/lab/status'", page)
+        self.assertIn("fetchWithTimeout('/api/lab/command'", page)
+        self.assertIn("window.setTimeout(persistProgress, 120)", page)
+        self.assertIn("typeof update === 'function'", page)
+        self.assertIn("[progress:save]", page)
         self.assertIn("[app:error-boundary]", error_boundary)
         self.assertIn("Riprova", error_boundary)
 

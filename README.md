@@ -30,7 +30,7 @@ Ogni collegamento punta direttamente all'installer ufficiale: facendo clic, il b
 
 Puoi scaricare ogni installer direttamente da questa tabella. La pagina **[Releases → Latest](https://github.com/Federpelli/JAVA_LINGUO/releases/latest)** rimane disponibile per checksum, SBOM e versioni precedenti.
 
-> Il repository principale e il canale release corrente sono [Federpelli/JAVA_LINGUO](https://github.com/Federpelli/JAVA_LINGUO). Il repository storico resta disponibile soltanto come fallback temporaneo per aggiornare le installazioni 0.6.5.
+> Il repository principale e l’unico canale release sono [Federpelli/JAVA_LINGUO](https://github.com/Federpelli/JAVA_LINGUO). Chi usa la versione 0.6.5 deve installare manualmente la 0.6.6 una sola volta; dalla 0.6.6 in avanti gli aggiornamenti useranno esclusivamente questo repository.
 
 | Sistema | Download diretto | Come scegliere |
 | --- | --- | --- |

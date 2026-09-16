@@ -91,6 +91,7 @@ p code,li code,h2 code { border-radius:.35rem; background:#dfe9e5; color:#005846
 .lab-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:2rem; }
 .path-card { display:flex; min-width:23rem; align-items:center; gap:.75rem; border-radius:.8rem; padding:.85rem 1rem; } .path-card>svg { width:1.4rem; color:var(--primary); } .path-card div { display:grid; gap:.2rem; } .path-card span { color:var(--soft); font-size:.69rem; text-transform:uppercase; } .path-card code { font-size:.7rem; }
 .warning-banner { display:flex; align-items:center; gap:.6rem; margin-top:1.5rem; border:1px solid #dfd69f; border-radius:.8rem; padding:.6rem .85rem; background:#fffbe7; color:#5f572e; font-size:.82rem; } .warning-banner>svg { width:1rem; } .warning-banner button { margin-left:auto; }
+.persistence-warning { display:flex; align-items:center; gap:.6rem; margin:1rem clamp(1.1rem,4vw,4rem) 0; border:1px solid #dfd69f; border-radius:.8rem; padding:.7rem .9rem; background:#fffbe7; color:#5f572e; font-size:.82rem; } .persistence-warning>svg { width:1rem; flex:0 0 auto; }
 .lab-briefing { display:grid; grid-template-columns:minmax(16rem,.7fr) minmax(0,1.3fr); gap:1.5rem; margin-top:1.5rem; border:1px solid #a9d5c8; border-radius:1rem; padding:1.35rem; background:linear-gradient(135deg,#f5fbf8,#edf7f3); }
 .lab-briefing-copy>span { color:var(--primary); font:700 .69rem var(--font-mono); letter-spacing:.1em; text-transform:uppercase; }
 .lab-briefing-copy h3 { margin:.45rem 0 .55rem; font-size:1.12rem; }

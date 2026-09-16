@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import FullscreenShortcut from './fullscreen-shortcut';
+import EscapeMinimizeShortcut from './escape-minimize-shortcut';
 
 export const metadata: Metadata = {
   title: 'JAVA_linguo · Impara Java con teoria e laboratorio',
@@ -14,7 +14,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="it">
       <body>
-        <FullscreenShortcut />
+        <EscapeMinimizeShortcut />
         {children}
       </body>
     </html>

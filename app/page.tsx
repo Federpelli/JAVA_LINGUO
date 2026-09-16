@@ -96,6 +96,21 @@ const JavaCodeEditor = dynamic(() => import('./java-code-editor'), {
   loading: () => <output className="editor-loading">Caricamento editor Java…</output>,
 });
 
+async function fetchWithTimeout(
+  input: RequestInfo | URL,
+  init: RequestInit = {},
+  timeoutMs = 10_000,
+) {
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    return await fetch(input, { ...init, signal: controller.signal });
+  } finally {
+    window.clearTimeout(timeout);
+  }
+}
+
 function initialProgress(lesson: CourseLesson): LessonProgress {
   return {
     tab: 'theory',
@@ -130,6 +145,8 @@ export default function Home() {
   const [configReady, setConfigReady] = useState(false);
   const [sandboxChecked, setSandboxChecked] = useState(false);
   const [sandboxChecking, setSandboxChecking] = useState(false);
+  const [persistenceWarning, setPersistenceWarning] = useState('');
+  const [lessonReloadKey, setLessonReloadKey] = useState(0);
   const sandboxCheckInFlight = useRef(false);
   const lessonCardRef = useRef<HTMLElement>(null);
   const lessonHeadingRef = useRef<HTMLHeadingElement>(null);
@@ -146,12 +163,12 @@ export default function Home() {
     sandboxCheckInFlight.current = true;
     setSandboxChecking(true);
     try {
-      const response = await fetch('/api/lab/status', {
+      const response = await fetchWithTimeout('/api/lab/status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'same-origin',
         body: '{}',
-      });
+      }, 10_000);
       if (!response.ok) throw new Error('Stato sandbox non disponibile');
       setSandbox(await response.json() as SandboxStatus);
     } catch {
@@ -169,20 +186,16 @@ export default function Home() {
 
   useEffect(() => {
     queueMicrotask(() => {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        try {
+      try {
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        if (raw) {
           const saved = JSON.parse(raw) as SavedCourse;
           if (saved.activeLesson) setActiveNumber(saved.activeLesson);
           setProgressByLesson(saved.lessons ?? {});
-        } catch {
-          window.localStorage.removeItem(STORAGE_KEY);
-        }
-      } else {
-        const previousRaw = window.localStorage.getItem(PREVIOUS_STORAGE_KEY)
-          ?? window.localStorage.getItem(LEGACY_STORAGE_KEY);
-        if (previousRaw) {
-          try {
+        } else {
+          const previousRaw = window.localStorage.getItem(PREVIOUS_STORAGE_KEY)
+            ?? window.localStorage.getItem(LEGACY_STORAGE_KEY);
+          if (previousRaw) {
             const previous = JSON.parse(previousRaw) as Partial<LessonProgress>;
             setProgressByLesson({
               '01': {
@@ -196,16 +209,17 @@ export default function Home() {
                 code: previous.code ?? '',
               },
             });
-          } catch {
-            window.localStorage.removeItem(PREVIOUS_STORAGE_KEY);
-            window.localStorage.removeItem(LEGACY_STORAGE_KEY);
           }
         }
+      } catch (error) {
+        console.error('[progress:load]', error);
+        setPersistenceWarning('I progressi salvati non sono leggibili. Puoi continuare, ma questa sessione potrebbe non essere conservata.');
+      } finally {
+        setHydrated(true);
       }
-      setHydrated(true);
     });
 
-    fetch('/app-config.json')
+    fetchWithTimeout('/app-config.json', {}, 10_000)
       .then(async (response) => {
         if (!response.ok) throw new Error('Configurazione locale non disponibile');
         return response.json();
@@ -229,6 +243,7 @@ export default function Home() {
     loadLesson(activeNumber)
       .then((loaded) => {
         if (cancelled) return;
+        setLessonError('');
         setLoadedLesson(loaded);
         setProgressByLesson((current) => {
           const saved = current[loaded.number];
@@ -251,13 +266,29 @@ export default function Home() {
         if (!cancelled) setLessonError(error instanceof Error ? error.message : 'Lezione non disponibile.');
       });
     return () => { cancelled = true; };
-  }, [activeNumber]);
+  }, [activeNumber, lessonReloadKey]);
 
   useEffect(() => {
     if (!hydrated) return;
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ activeLesson: activeNumber, lessons: progressByLesson } satisfies SavedCourse));
-    window.localStorage.removeItem(PREVIOUS_STORAGE_KEY);
-    window.localStorage.removeItem(LEGACY_STORAGE_KEY);
+
+    const persistProgress = () => {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ activeLesson: activeNumber, lessons: progressByLesson } satisfies SavedCourse));
+        window.localStorage.removeItem(PREVIOUS_STORAGE_KEY);
+        window.localStorage.removeItem(LEGACY_STORAGE_KEY);
+        setPersistenceWarning('');
+      } catch (error) {
+        console.error('[progress:save]', error);
+        setPersistenceWarning('I progressi non possono essere salvati sul dispositivo. Verifica lo spazio disponibile e le impostazioni dell’app.');
+      }
+    };
+    const timeout = window.setTimeout(persistProgress, 120);
+    window.addEventListener('pagehide', persistProgress, { once: true });
+
+    return () => {
+      window.clearTimeout(timeout);
+      window.removeEventListener('pagehide', persistProgress);
+    };
   }, [activeNumber, progressByLesson, hydrated]);
 
   useEffect(() => {
@@ -299,12 +330,18 @@ export default function Home() {
   ));
   const section = lesson?.theory[slide];
 
-  function updateProgress(patch: Partial<LessonProgress>) {
+  function updateProgress(
+    update: Partial<LessonProgress> | ((current: LessonProgress) => Partial<LessonProgress>),
+  ) {
     if (!lesson) return;
-    setProgressByLesson((current) => ({
-      ...current,
-      [lesson.number]: { ...(current[lesson.number] ?? initialProgress(lesson)), ...patch },
-    }));
+    setProgressByLesson((current) => {
+      const saved = current[lesson.number] ?? initialProgress(lesson);
+      const patch = typeof update === 'function' ? update(saved) : update;
+      return {
+        ...current,
+        [lesson.number]: { ...saved, ...patch },
+      };
+    });
   }
 
   function selectSlide(nextSlide: number | ((currentSlide: number) => number)) {
@@ -373,14 +410,14 @@ export default function Home() {
     }
     setRunning(true);
     try {
-      const response = await fetch('/api/lab/command', {
+      const response = await fetchWithTimeout('/api/lab/command', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         credentials: 'same-origin',
         body: JSON.stringify({ code: lessonProgress?.code ?? '', command: normalized }),
-      });
+      }, 25_000);
       const result = await response.json() as CommandResult;
       appendTerminal({
         command: normalized,
@@ -411,7 +448,7 @@ export default function Home() {
       <main className="lesson-loading-screen">
         <Image src="/favicon.svg" alt="JAVA_linguo" width={56} height={56} unoptimized />
         {lessonError
-          ? <><strong>Impossibile aprire la lezione</strong><p>{lessonError}</p><Button onClick={() => setActiveNumber('01')}>Torna alla lezione 01</Button></>
+          ? <><strong>Impossibile aprire la lezione</strong><p>{lessonError}</p><Button onClick={() => { setLessonError(''); setActiveNumber('01'); setLessonReloadKey((value) => value + 1); }}>Riprova dalla lezione 01</Button></>
           : <><LoaderCircle className="spin" /><strong>Preparazione lezione {activeNumber}…</strong></>}
       </main>
     );
@@ -507,6 +544,8 @@ export default function Home() {
             </div>
           </header>
 
+          {persistenceWarning && <div className="persistence-warning" role="alert"><Lightbulb />{persistenceWarning}</div>}
+
           <TabsContent value="theory" className="content-panel">
             <div className="theory-layout">
               <article className="lesson-card" ref={lessonCardRef} key={`${lesson.number}-${slide}`}>
@@ -551,7 +590,7 @@ export default function Home() {
                 const correct = answers[question.id] === question.correct;
                 return <article className={`quiz-card ${quizChecked ? (correct ? 'correct' : 'incorrect') : ''}`} key={question.id}>
                   <div className="question-number">0{index + 1}</div><h3>{question.question}</h3>
-                  <RadioGroup value={answers[question.id] ?? ''} onValueChange={(value) => updateProgress({ answers: { ...answers, [question.id]: String(value) }, quizChecked: false })} aria-label={question.question}>
+                  <RadioGroup value={answers[question.id] ?? ''} onValueChange={(value) => updateProgress((current) => ({ answers: { ...current.answers, [question.id]: String(value) }, quizChecked: false }))} aria-label={question.question}>
                     {question.options.map((option) => <label className="option-row" key={option.id}><RadioGroupItem value={option.id} /><span>{option.label}</span></label>)}
                   </RadioGroup>
                   {quizChecked && <p className="answer-feedback">{correct ? <CheckCircle2 /> : <Lightbulb />}{question.explanation}</p>}
@@ -622,7 +661,7 @@ export default function Home() {
                     <div><span>Spiega la tua scelta</span><p>{mission.reflection}</p></div>
                     <div><span>Sfida facoltativa</span><p>{mission.challenge}</p></div>
                   </div>
-                  <label className="mission-check" htmlFor={`mission-${lesson.number}-${index}`}><Checkbox id={`mission-${lesson.number}-${index}`} checked={labChecks[index]} onCheckedChange={(checked) => updateProgress({ labChecks: labChecks.map((value, itemIndex) => itemIndex === index ? checked === true : value) })} />Ho implementato il metodo, verificato tutti i casi e scritto la motivazione</label>
+                  <label className="mission-check" htmlFor={`mission-${lesson.number}-${index}`}><Checkbox id={`mission-${lesson.number}-${index}`} checked={labChecks[index]} onCheckedChange={(checked) => updateProgress((current) => ({ labChecks: current.labChecks.map((value, itemIndex) => itemIndex === index ? checked === true : value) }))} />Ho implementato il metodo, verificato tutti i casi e scritto la motivazione</label>
                 </AccordionContent>
               </AccordionItem>)}
             </Accordion>
