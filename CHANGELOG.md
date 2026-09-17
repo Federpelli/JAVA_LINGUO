@@ -2,6 +2,13 @@
 
 Tutte le modifiche rilevanti di JAVA_linguo sono documentate in questo file. Il progetto segue il versionamento semantico.
 
+## [0.6.8] - 2026-09-17
+
+### Corretto
+
+- il passaggio dalla schermata di avvio all'app sostituisce la voce corrente della cronologia, impedendo al gesto laterale del touchpad di tornare al caricamento;
+- l'interfaccia blocca l'overscroll orizzontale alla radice, senza interferire con lo scorrimento verticale delle lezioni.
+
 ## [0.6.7] - 2026-09-17
 
 ### Corretto

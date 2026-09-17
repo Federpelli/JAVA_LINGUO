@@ -21,6 +21,7 @@
 * { box-sizing:border-box; border-color:var(--border); }
 html { background:var(--background); font-family:var(--font-sans); }
 body { margin:0; color:var(--foreground); background:radial-gradient(circle at 86% 3%,rgb(34 211 182 / 9%),transparent 25rem),var(--background); }
+html,body { overscroll-behavior-x:none; }
 html,body,.lesson-list,.terminal-output,.cm-scroller { scrollbar-width:none; -ms-overflow-style:none; }
 html::-webkit-scrollbar,body::-webkit-scrollbar,.lesson-list::-webkit-scrollbar,.terminal-output::-webkit-scrollbar,.cm-scroller::-webkit-scrollbar { display:none; width:0; height:0; }
 button,textarea { font:inherit; } button { cursor:pointer; } button:disabled { cursor:not-allowed; }

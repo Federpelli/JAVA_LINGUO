@@ -67,25 +67,35 @@ fn show_startup_error(app: &tauri::AppHandle, message: &str) {
     }
 }
 
+fn replace_window_location(window: &WebviewWindow, url: &str) -> Result<(), String> {
+    let serialized_url = serde_json::to_string(url)
+        .map_err(|error| format!("Impossibile preparare l'indirizzo locale: {error}"))?;
+
+    window
+        .eval(&format!("window.location.replace({serialized_url});"))
+        .map_err(|error| format!("Impossibile aprire l'applicazione locale: {error}"))
+}
+
 fn wait_for_backend(app: tauri::AppHandle, port: u16) {
     let address = SocketAddr::from(([127, 0, 0, 1], port));
     for _ in 0..200 {
         if TcpStream::connect_timeout(&address, Duration::from_millis(100)).is_ok() {
             let url = format!("http://127.0.0.1:{port}");
-            match url.parse() {
-                Ok(url) => {
-                    if let Some(window) = app.get_webview_window("main") {
-                        if window.navigate(url).is_ok() {
-                            let _ = window.show();
-                            let _ = window.set_focus();
-                            return;
-                        }
+            if let Some(window) = app.get_webview_window("main") {
+                match replace_window_location(&window, &url) {
+                    Ok(()) => {
+                        let _ = window.show();
+                        let _ = window.set_focus();
+                        return;
+                    }
+                    Err(error) => {
+                        show_startup_error(&app, &error);
+                        return;
                     }
                 }
-                Err(error) => {
-                    show_startup_error(&app, &format!("Indirizzo locale non valido: {error}"));
-                    return;
-                }
+            } else {
+                show_startup_error(&app, "La finestra principale non è disponibile.");
+                return;
             }
         }
         std::thread::sleep(Duration::from_millis(100));

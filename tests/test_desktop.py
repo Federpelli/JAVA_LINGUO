@@ -136,6 +136,8 @@ class DesktopConfigurationTests(unittest.TestCase):
         self.assertIn("stop_backend(&app.state::<BackendProcess>())", rust_source)
         self.assertIn("tauri_plugin_opener::init()", rust_source)
         self.assertIn('format!("http://127.0.0.1:{port}")', rust_source)
+        self.assertIn("window.location.replace({serialized_url})", rust_source)
+        self.assertNotIn("window.navigate(", rust_source)
         self.assertIn("fn minimize_main_window", rust_source)
         self.assertIn("fn load_course_progress", rust_source)
         self.assertIn("fn save_course_progress", rust_source)
@@ -183,6 +185,11 @@ class DesktopConfigurationTests(unittest.TestCase):
         self.assertIn("[progress:native-save]", page)
         self.assertIn("[app:error-boundary]", error_boundary)
         self.assertIn("Riprova", error_boundary)
+
+        global_styles = (ROOT / "app" / "globals.css").read_text(encoding="utf-8")
+        loading_page = (ROOT / "public" / "desktop-loading.html").read_text(encoding="utf-8")
+        self.assertIn("html,body { overscroll-behavior-x:none; }", global_styles)
+        self.assertEqual(loading_page.count("overscroll-behavior-x: none"), 2)
 
     def test_java_editor_and_terminal_input_are_exposed(self) -> None:
         package = json.loads((ROOT / "package.json").read_text())
