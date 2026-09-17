@@ -2,9 +2,13 @@ use std::net::{SocketAddr, TcpListener, TcpStream};
 use std::sync::Mutex;
 use std::time::Duration;
 
-use tauri::{Manager, RunEvent};
+use tauri::{Manager, RunEvent, State, WebviewWindow};
 use tauri_plugin_shell::process::CommandChild;
 use tauri_plugin_shell::ShellExt;
+
+mod progress_store;
+
+use progress_store::ProgressStore;
 
 #[derive(Default)]
 struct BackendProcess(Mutex<Option<CommandChild>>);
@@ -18,6 +22,30 @@ fn stop_backend(process: &BackendProcess) {
         #[cfg(windows)]
         std::thread::sleep(Duration::from_millis(750));
     }
+}
+
+#[tauri::command]
+fn minimize_main_window(window: WebviewWindow) -> Result<(), String> {
+    window
+        .minimize()
+        .map_err(|error| format!("Impossibile ridurre a icona la finestra: {error}"))
+}
+
+#[tauri::command]
+fn load_course_progress(
+    app: tauri::AppHandle,
+    store: State<'_, ProgressStore>,
+) -> Result<Option<String>, String> {
+    store.synchronized(|| progress_store::load(&app))
+}
+
+#[tauri::command]
+fn save_course_progress(
+    app: tauri::AppHandle,
+    store: State<'_, ProgressStore>,
+    payload: String,
+) -> Result<(), String> {
+    store.synchronized(|| progress_store::save(&app, &payload))
 }
 
 fn available_loopback_port() -> Result<u16, String> {
@@ -75,6 +103,12 @@ pub fn run() {
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_opener::init())
         .manage(BackendProcess::default())
+        .manage(ProgressStore::default())
+        .invoke_handler(tauri::generate_handler![
+            minimize_main_window,
+            load_course_progress,
+            save_course_progress
+        ])
         .setup(|app| {
             let port = available_loopback_port()?;
             let port_argument = port.to_string();

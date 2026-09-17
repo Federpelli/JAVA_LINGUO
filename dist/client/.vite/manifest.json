@@ -7,10 +7,6 @@
       "_framework-DTZGTDtF.js"
     ]
   },
-  "_core-DNaw6KYU.js": {
-    "file": "_next/static/chunks/core-DNaw6KYU.js",
-    "name": "core"
-  },
   "_course-factory-9PcRttbO.js": {
     "file": "_next/static/chunks/course-factory-9PcRttbO.js",
     "name": "course-factory"
@@ -26,15 +22,15 @@
     "file": "_next/static/chunks/rolldown-runtime-hePW80VL.js",
     "name": "rolldown-runtime"
   },
-  "_vinext-aESh8Nbv.js": {
-    "file": "_next/static/chunks/vinext-aESh8Nbv.js",
+  "_vinext-ENs0Udkc.js": {
+    "file": "_next/static/chunks/vinext-ENs0Udkc.js",
     "name": "vinext",
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js"
     ],
     "dynamicImports": [
-      "_vinext-aESh8Nbv.js"
+      "_vinext-ENs0Udkc.js"
     ]
   },
   "app/course-data.ts": {
@@ -82,14 +78,14 @@
     ]
   },
   "app/escape-minimize-shortcut.tsx": {
-    "file": "_next/static/chunks/escape-minimize-shortcut-BAh_XvyU.js",
+    "file": "_next/static/chunks/escape-minimize-shortcut-DwP9Pthq.js",
     "name": "escape-minimize-shortcut",
     "src": "app/escape-minimize-shortcut.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_core-DNaw6KYU.js"
+      "node_modules/@tauri-apps/api/core.js"
     ]
   },
   "app/java-code-editor.tsx": {
@@ -103,14 +99,14 @@
     ]
   },
   "app/page.tsx": {
-    "file": "_next/static/chunks/page-CNXYxtf6.js",
+    "file": "_next/static/chunks/page-XuKqsG6W.js",
     "name": "page",
     "src": "app/page.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_vinext-aESh8Nbv.js",
+      "_vinext-ENs0Udkc.js",
       "_button-BZW_5vn-.js"
     ],
     "dynamicImports": [
@@ -118,62 +114,69 @@
       "app/course-lessons-02-19.ts",
       "app/course-lessons-20-37.ts",
       "app/course-lessons-38-52.ts",
+      "node_modules/@tauri-apps/api/core.js",
       "node_modules/@tauri-apps/plugin-updater/dist-js/index.js",
       "node_modules/@tauri-apps/plugin-process/dist-js/index.js",
       "node_modules/@tauri-apps/plugin-opener/dist-js/index.js",
       "app/java-code-editor.tsx"
     ]
   },
+  "node_modules/@tauri-apps/api/core.js": {
+    "file": "_next/static/chunks/core-D8n9Wfto.js",
+    "name": "core",
+    "src": "node_modules/@tauri-apps/api/core.js",
+    "isDynamicEntry": true
+  },
   "node_modules/@tauri-apps/plugin-opener/dist-js/index.js": {
-    "file": "_next/static/chunks/dist-js-EJDCU2l2.js",
+    "file": "_next/static/chunks/dist-js-CEzaAYLW.js",
     "name": "dist-js",
     "src": "node_modules/@tauri-apps/plugin-opener/dist-js/index.js",
     "isDynamicEntry": true,
     "imports": [
-      "_core-DNaw6KYU.js"
+      "node_modules/@tauri-apps/api/core.js"
     ]
   },
   "node_modules/@tauri-apps/plugin-process/dist-js/index.js": {
-    "file": "_next/static/chunks/dist-js-C7JaR3Vq.js",
+    "file": "_next/static/chunks/dist-js-BgjaShVQ.js",
     "name": "dist-js",
     "src": "node_modules/@tauri-apps/plugin-process/dist-js/index.js",
     "isDynamicEntry": true,
     "imports": [
-      "_core-DNaw6KYU.js"
+      "node_modules/@tauri-apps/api/core.js"
     ]
   },
   "node_modules/@tauri-apps/plugin-updater/dist-js/index.js": {
-    "file": "_next/static/chunks/dist-js-Cew7oPiS.js",
+    "file": "_next/static/chunks/dist-js-CJpv2y4_.js",
     "name": "dist-js",
     "src": "node_modules/@tauri-apps/plugin-updater/dist-js/index.js",
     "isDynamicEntry": true,
     "imports": [
-      "_core-DNaw6KYU.js"
+      "node_modules/@tauri-apps/api/core.js"
     ]
   },
   "node_modules/vinext/dist/shims/layout-segment-context.js": {
-    "file": "_next/static/chunks/layout-segment-context-CQv8knXP.js",
+    "file": "_next/static/chunks/layout-segment-context-C9IWbD_I.js",
     "name": "layout-segment-context",
     "src": "node_modules/vinext/dist/shims/layout-segment-context.js",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_vinext-aESh8Nbv.js"
+      "_vinext-ENs0Udkc.js"
     ]
   },
   "virtual:vinext-app-browser-entry": {
-    "file": "_next/static/chunks/index-BGT0Dxvy.js",
+    "file": "_next/static/chunks/index-gOwmhjOx.js",
     "name": "index",
     "src": "virtual:vinext-app-browser-entry",
     "isEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_vinext-aESh8Nbv.js"
+      "_vinext-ENs0Udkc.js"
     ],
     "dynamicImports": [
-      "_vinext-aESh8Nbv.js",
+      "_vinext-ENs0Udkc.js",
       "node_modules/vinext/dist/shims/layout-segment-context.js",
       "app/page.tsx",
       "app/escape-minimize-shortcut.tsx",

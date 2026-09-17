@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "JAVA_linguo",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "identifier": "com.federpelli25.java-linguo",
   "build": {
     "frontendDist": "../dist/client"
@@ -17,7 +17,10 @@
         "minWidth": 960,
         "minHeight": 640,
         "center": true,
-        "fullscreen": true,
+        "fullscreen": false,
+        "maximized": true,
+        "decorations": true,
+        "resizable": true,
         "visible": true,
         "devtools": false
       }

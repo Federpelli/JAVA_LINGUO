@@ -1,0 +1,1 @@
+import{invoke as e}from"./core-D8n9Wfto.js";async function t(t,n){await e(`plugin:opener|open_url`,{url:t,with:n})}export{t as openUrl};

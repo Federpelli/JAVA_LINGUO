@@ -8,6 +8,9 @@
     "urls": ["http://127.0.0.1:*"]
   },
   "permissions": [
+    "allow-minimize-main-window",
+    "allow-load-course-progress",
+    "allow-save-course-progress",
     "core:window:allow-minimize",
     "updater:allow-check",
     "updater:allow-download-and-install",

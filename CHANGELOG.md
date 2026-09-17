@@ -2,6 +2,15 @@
 
 Tutte le modifiche rilevanti di JAVA_linguo sono documentate in questo file. Il progetto segue il versionamento semantico.
 
+## [0.6.7] - 2026-09-17
+
+### Corretto
+
+- la finestra desktop ora si apre massimizzata con barra del titolo e controlli di riduzione, senza modalità fullscreen;
+- `Esc` richiama un comando Tauri nativo per ridurre la finestra a icona, mantenendo l’API finestra come fallback;
+- i progressi vengono salvati in un file persistente dell’app, indipendente dalla porta casuale del server locale;
+- al primo avvio viene recuperato automaticamente il record più avanzato ancora presente nei database `localStorage` delle versioni precedenti.
+
 ## [0.6.6] - 2026-09-16
 
 ### Corretto

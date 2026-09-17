@@ -1,0 +1,1 @@
+import{invoke as e}from"./core-D8n9Wfto.js";async function t(){await e(`plugin:process|restart`)}export{t as relaunch};
