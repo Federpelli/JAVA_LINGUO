@@ -44,7 +44,7 @@ jobs:
         run: npx oxlint app
 
       - name: Verifica gestione errori updater
-        run: npm run test:update-errors
+        run: npm run test:frontend
 
       - name: Genera la build distribuibile
         run: npm run build

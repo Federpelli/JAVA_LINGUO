@@ -24,7 +24,7 @@ Eseguire nell'ordine:
 
 ```powershell
 npx oxlint app
-npm run test:update-errors
+npm run test:frontend
 npm run course:validate
 npm run build
 npm audit --audit-level=high

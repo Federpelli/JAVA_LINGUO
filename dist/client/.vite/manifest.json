@@ -22,15 +22,15 @@
     "file": "_next/static/chunks/rolldown-runtime-hePW80VL.js",
     "name": "rolldown-runtime"
   },
-  "_vinext-DBVkQ8SQ.js": {
-    "file": "_next/static/chunks/vinext-DBVkQ8SQ.js",
+  "_vinext-CulpwxqM.js": {
+    "file": "_next/static/chunks/vinext-CulpwxqM.js",
     "name": "vinext",
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js"
     ],
     "dynamicImports": [
-      "_vinext-DBVkQ8SQ.js"
+      "_vinext-CulpwxqM.js"
     ]
   },
   "app/course-data.ts": {
@@ -99,14 +99,14 @@
     ]
   },
   "app/page.tsx": {
-    "file": "_next/static/chunks/page-Be5HbjhZ.js",
+    "file": "_next/static/chunks/page-DFXLarVh.js",
     "name": "page",
     "src": "app/page.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_vinext-DBVkQ8SQ.js",
+      "_vinext-CulpwxqM.js",
       "_button-BZW_5vn-.js"
     ],
     "dynamicImports": [
@@ -155,28 +155,28 @@
     ]
   },
   "node_modules/vinext/dist/shims/layout-segment-context.js": {
-    "file": "_next/static/chunks/layout-segment-context-2IesUMef.js",
+    "file": "_next/static/chunks/layout-segment-context-C5ePw4k2.js",
     "name": "layout-segment-context",
     "src": "node_modules/vinext/dist/shims/layout-segment-context.js",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_vinext-DBVkQ8SQ.js"
+      "_vinext-CulpwxqM.js"
     ]
   },
   "virtual:vinext-app-browser-entry": {
-    "file": "_next/static/chunks/index-vSe74GCf.js",
+    "file": "_next/static/chunks/index-rtzGrQ42.js",
     "name": "index",
     "src": "virtual:vinext-app-browser-entry",
     "isEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_vinext-DBVkQ8SQ.js"
+      "_vinext-CulpwxqM.js"
     ],
     "dynamicImports": [
-      "_vinext-DBVkQ8SQ.js",
+      "_vinext-CulpwxqM.js",
       "node_modules/vinext/dist/shims/layout-segment-context.js",
       "app/page.tsx",
       "app/escape-minimize-shortcut.tsx",

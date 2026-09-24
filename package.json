@@ -1,6 +1,6 @@
 {
   "name": "java-linguo",
-  "version": "0.6.8",
+  "version": "0.7.0",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -12,6 +12,7 @@
     "desktop:build": "npm run build && python scripts/build_sidecar.py && tauri build",
     "desktop:dev": "npm run build && python scripts/build_sidecar.py && tauri dev",
     "course:validate": "node scripts/validate_course.mjs",
+    "test:frontend": "node --test tests/update-errors.test.mjs tests/release-notes.test.mjs",
     "test:update-errors": "node --test tests/update-errors.test.mjs",
     "lint": "oxlint app",
     "format": "oxfmt"

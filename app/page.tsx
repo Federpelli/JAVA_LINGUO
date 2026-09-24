@@ -67,6 +67,8 @@ import {
 } from './progress-persistence';
 import UpdateCenter from './update-center';
 import { APP_VERSION } from './version';
+import WhatsNewDialog from './whats-new-dialog';
+import { shouldShowReleaseNotes } from './release-notes';
 
 type Answers = Record<string, string>;
 type SandboxStatus = {
@@ -104,6 +106,7 @@ type LessonProgress = {
 type SavedCourse = {
   activeLesson: string;
   lessons: Record<string, LessonProgress>;
+  lastSeenVersion?: string;
 };
 
 const STORAGE_KEY = 'java-linguo-progress-v3';
@@ -175,6 +178,7 @@ export default function Home() {
   const [sandboxChecking, setSandboxChecking] = useState(false);
   const [persistenceWarning, setPersistenceWarning] = useState('');
   const [lessonReloadKey, setLessonReloadKey] = useState(0);
+  const [lastSeenVersion, setLastSeenVersion] = useState('');
   const sandboxCheckInFlight = useRef(false);
   const lessonCardRef = useRef<HTMLElement>(null);
   const lessonHeadingRef = useRef<HTMLHeadingElement>(null);
@@ -239,6 +243,7 @@ export default function Home() {
           const saved = JSON.parse(raw) as SavedCourse;
           if (saved.activeLesson) setActiveNumber(saved.activeLesson);
           setProgressByLesson(saved.lessons ?? {});
+          setLastSeenVersion(saved.lastSeenVersion ?? '');
         } else {
           const previousRaw =
             window.localStorage.getItem(PREVIOUS_STORAGE_KEY) ??
@@ -352,6 +357,7 @@ export default function Home() {
     const payload = JSON.stringify({
       activeLesson: activeNumber,
       lessons: progressByLesson,
+      lastSeenVersion,
     } satisfies SavedCourse);
     const nativeRequired = isTauriRuntime();
 
@@ -395,7 +401,7 @@ export default function Home() {
       window.clearTimeout(timeout);
       window.removeEventListener('pagehide', persistWithoutWaiting);
     };
-  }, [activeNumber, progressByLesson, hydrated]);
+  }, [activeNumber, progressByLesson, hydrated, lastSeenVersion]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -649,9 +655,16 @@ export default function Home() {
   const firstIncompleteIndex = courseManifest.findIndex(
     (item) => progressByLesson[item.number]?.completed !== true,
   );
+  const showReleaseNotes =
+    hydrated && shouldShowReleaseNotes(APP_VERSION, lastSeenVersion);
 
   return (
-    <main className="app-shell">
+    <>
+      <WhatsNewDialog
+        open={showReleaseNotes}
+        onDismiss={() => setLastSeenVersion(APP_VERSION)}
+      />
+      <main className="app-shell">
       <aside className="course-rail">
         <div className="brand-lockup">
           <span className="brand-mark" aria-hidden="true">
@@ -788,7 +801,10 @@ export default function Home() {
                 <ProgressLabel>Progresso</ProgressLabel>
                 <span className="progress-value">{progress}%</span>
               </Progress>
-              <UpdateCenter currentVersion={APP_VERSION} />
+              <UpdateCenter
+                currentVersion={APP_VERSION}
+                autoCheckEnabled={!showReleaseNotes}
+              />
               <AlertDialog
                 open={resetDialogOpen}
                 onOpenChange={setResetDialogOpen}
@@ -1452,6 +1468,7 @@ export default function Home() {
           </TabsContent>
         </Tabs>
       </section>
-    </main>
+      </main>
+    </>
   );
 }

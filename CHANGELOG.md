@@ -2,6 +2,14 @@
 
 Tutte le modifiche rilevanti di JAVA_linguo sono documentate in questo file. Il progetto segue il versionamento semantico.
 
+## [0.7.0] - 2026-09-24
+
+### Aggiunto
+
+- popup accessibile al primo avvio di ogni nuova versione con un riepilogo sintetico delle funzionalit\u00e0 aggiunte;
+- salvataggio locale della versione gi\u00e0 letta nello stesso archivio persistente dei progressi, senza modificare lezioni, appunti o codice;
+- controllo automatico degli aggiornamenti posticipato fino alla chiusura del riepilogo, evitando la sovrapposizione di dialoghi.
+
 ## [0.6.8] - 2026-09-17
 
 ### Corretto

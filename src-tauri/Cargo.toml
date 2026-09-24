@@ -1,6 +1,6 @@
 [package]
 name = "java-linguo"
-version = "0.6.8"
+version = "0.7.0"
 description = "Percorso desktop per imparare Java con teoria, verifica e laboratorio"
 authors = ["Federpelli25"]
 edition = "2021"

@@ -295,6 +295,22 @@ p code,li code,h2 code { border-radius:.35rem; background:#dfe9e5; color:#005846
 .update-progress progress { width:100%; height:.55rem; overflow:hidden; border:0; border-radius:999px; accent-color:var(--primary); }
 .update-progress small { color:#697b75; line-height:1.45; }
 .update-dialog [data-slot=dialog-footer] { margin:0 -1.25rem -1.25rem; padding:.9rem 1.25rem; }
+.whats-new-dialog { width:min(calc(100% - 2rem),34rem); max-width:34rem!important; gap:1.1rem; overflow:hidden; border:1px solid #b9d4cc; border-radius:1.2rem; padding:1.35rem; background:linear-gradient(180deg,#fff 0%,#fbfdfc 100%); box-shadow:0 28px 90px rgb(8 31 25 / 28%); }
+.whats-new-dialog [data-slot=dialog-header] { display:grid; grid-template-columns:auto minmax(0,1fr); align-items:start; gap:1rem; padding-right:1.7rem; text-align:left; }
+.whats-new-dialog [data-slot=dialog-title] { margin-top:.3rem; color:var(--foreground); font-size:1.3rem; font-weight:780; line-height:1.25; letter-spacing:-.02em; }
+.whats-new-dialog [data-slot=dialog-description] { margin-top:.4rem; color:#5a6b66; font-size:.9rem; line-height:1.55; }
+.whats-new-dialog-icon { display:grid; width:3rem; height:3rem; place-items:center; border:1px solid #a7ce58; border-radius:.85rem; background:#eff9dc; color:#587a0b; box-shadow:inset 0 0 0 4px rgb(185 242 39 / 10%); }
+.whats-new-dialog-icon svg { width:1.35rem; height:1.35rem; }
+.whats-new-version { color:#176d5b; font:750 .68rem var(--font-mono); letter-spacing:.09em; text-transform:uppercase; }
+.whats-new-features { display:grid; gap:.65rem; max-height:min(44vh,22rem); overflow:auto; margin:0; padding:0 .15rem 0 0; scrollbar-width:none; list-style:none; }
+.whats-new-features::-webkit-scrollbar { display:none; }
+.whats-new-features li { display:grid; grid-template-columns:auto minmax(0,1fr); gap:.75rem; border:1px solid #d7e4e0; border-radius:.85rem; padding:.85rem .95rem; background:#f5f9f7; }
+.whats-new-features li>span { display:grid; width:1.65rem; height:1.65rem; place-items:center; border-radius:50%; background:#dff1e9; color:var(--primary); }
+.whats-new-features li>span svg { width:.95rem; height:.95rem; stroke-width:2.5; }
+.whats-new-features strong { display:block; color:#193f36; font-size:.88rem; }
+.whats-new-features p { margin:.22rem 0 0; color:#5a6b66; font-size:.8rem; line-height:1.5; }
+.whats-new-dialog [data-slot=dialog-footer] { margin:0 -1.35rem -1.35rem; padding:.95rem 1.35rem; }
+.whats-new-dialog [data-slot=dialog-footer] button { min-width:9.5rem; }
 
 @media(max-width:700px){
   .lesson-picker-label { display:grid; gap:.25rem; margin-top:.55rem; }

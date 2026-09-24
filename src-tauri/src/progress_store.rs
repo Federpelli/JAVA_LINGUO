@@ -146,6 +146,20 @@ fn is_saved_course(value: &Value) -> bool {
     if !valid_lesson_number(active_lesson) {
         return false;
     }
+    let valid_last_seen_version = root
+        .get("lastSeenVersion")
+        .is_none_or(|version| {
+            version.as_str().is_some_and(|value| {
+                value.len() <= 32
+                    && value.bytes().all(|character| {
+                        character.is_ascii_digit()
+                            || matches!(character, b'.' | b'-' | b'+')
+                    })
+            })
+        });
+    if !valid_last_seen_version {
+        return false;
+    }
     let Some(lessons) = root.get("lessons").and_then(Value::as_object) else {
         return false;
     };
@@ -437,6 +451,28 @@ mod tests {
     #[test]
     fn rejects_an_invalid_saved_course() {
         let invalid = json!({"activeLesson": "../../", "lessons": {}}).to_string();
+        assert!(validate_payload(&invalid).is_err());
+    }
+
+    #[test]
+    fn accepts_a_bounded_last_seen_version() {
+        let saved = json!({
+            "activeLesson": "01",
+            "lastSeenVersion": "0.7.0",
+            "lessons": {"01": lesson(0)}
+        })
+        .to_string();
+        assert!(validate_payload(&saved).is_ok());
+    }
+
+    #[test]
+    fn rejects_an_invalid_last_seen_version() {
+        let invalid = json!({
+            "activeLesson": "01",
+            "lastSeenVersion": "<script>alert(1)</script>",
+            "lessons": {"01": lesson(0)}
+        })
+        .to_string();
         assert!(validate_payload(&invalid).is_err());
     }
 }

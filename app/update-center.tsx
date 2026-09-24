@@ -15,7 +15,13 @@ import {
 } from '@/components/ui/dialog';
 
 type UpdateMode = 'idle' | 'checking' | 'available' | 'downloading' | 'installing' | 'current' | 'error';
-export default function UpdateCenter({ currentVersion }: { currentVersion: string }) {
+export default function UpdateCenter({
+  currentVersion,
+  autoCheckEnabled = true,
+}: {
+  currentVersion: string;
+  autoCheckEnabled?: boolean;
+}) {
   const [supported, setSupported] = useState<boolean | null>(null);
   const [mode, setMode] = useState<UpdateMode>('idle');
   const [open, setOpen] = useState(false);
@@ -64,10 +70,10 @@ export default function UpdateCenter({ currentVersion }: { currentVersion: strin
   useEffect(() => {
     const isTauri = typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window;
     queueMicrotask(() => setSupported(isTauri));
-    if (!isTauri) return;
+    if (!isTauri || !autoCheckEnabled) return;
     const timeout = window.setTimeout(() => void checkForUpdate(false), 2_500);
     return () => window.clearTimeout(timeout);
-  }, [checkForUpdate]);
+  }, [autoCheckEnabled, checkForUpdate]);
 
   async function installUpdate() {
     const update = updateRef.current;
